@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	html {
+		@apply scroll-smooth;
+	}
+	body {
+		@apply font-sans;
+	}
+	h3 {
+		@apply text-lg font-semibold cursor-default
+	}
+	h4 {
+		@apply font-medium text-[15px] cursor-default
+	}
+}
+
+@layer components {
+	.small_text {
+		@apply text-[10px]
+	}
+	.container {
+		@apply max-w-md mx-auto pb-8 px-6 min-h-screen;
+	}
+
+	.filter_card {
+		@apply relative w-36 h-28 rounded-2xl p-3 flex items-end cursor-pointer
+	}
+}
+
+.swiper-slide {
+  width: fit-content !important;
+}
