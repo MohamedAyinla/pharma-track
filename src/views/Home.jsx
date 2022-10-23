@@ -11,6 +11,7 @@ import Image3 from '../images/icons/appel-durgence.png';
 import PharmaSmall from '../components/cards/PharmaSmall';
 import Header from '../components/global/Header';
 import { motion } from 'framer-motion';
+import { Pharmacies } from '../data/pharma';
 
 const list = {
 	visible: {
@@ -51,44 +52,6 @@ const FilterCard = [
 	},
 ];
 
-const Pharmacies = [
-	{
-		name: 'Pharmacie Sicap Liberty',
-		city: 'Sicap Liberty',
-		region: 'Dakar',
-		status: true,
-		position: 1,
-		garde: true,
-		refer: false,
-	},
-	{
-		name: 'Pharmacie Sicap Liberty',
-		city: 'Sicap Liberty',
-		region: 'Dakar',
-		status: false,
-		position: 1.5,
-		garde: false,
-		refer: false,
-	},
-	{
-		name: 'Pharmacie Sicap Liberty',
-		city: 'Sicap Liberty',
-		region: 'Dakar',
-		status: true,
-		position: 1.6,
-		garde: false,
-		refer: false,
-	},
-	{
-		name: 'Pharmacie Sicap Liberty',
-		city: 'Sicap Liberty',
-		region: 'Dakar',
-		status: false,
-		position: 0.5,
-		garde: false,
-		refer: false,
-	}
-];
 
 function Home() {
 	return (
@@ -139,16 +102,10 @@ function Home() {
 					variants={list}
 					className='grid grid-cols-1 gap-3'
 				>
-					{Pharmacies.sort((a, b) => a.position - b.position).map((el, i) => (
+					{Pharmacies.sort((a, b) => a.position - b.position).map((el) => (
 						<PharmaSmall
-							key={i}
-							city={el.city}
-							status={el.status}
-							garde={el.garde}
-							position={el.position}
-							region={el.region}
-							refer={el.refer}
-							name={el.name}
+							key={el.id}
+							element={el}
 						/>
 					))}
 				</motion.div>

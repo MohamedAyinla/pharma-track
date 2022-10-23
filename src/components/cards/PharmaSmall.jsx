@@ -1,12 +1,17 @@
 import React from 'react'
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router';
 const item = {
 	visible: { opacity: 1, y: 0 },
 	hidden: { opacity: 0, y: -10 },
 };
-function PharmaSmall({status, name, city, region, refer, position, garde}) {
+function PharmaSmall({ element }) {
+	let navigate = useNavigate()
   return (
-		<motion.div
+	  <motion.div
+		  onClick={() => {
+			  navigate(`/pharmacies/${element.id}`, {state: {pharmacie: element}});
+		  }}
 			variants={item}
 			transition={{
 				default: {
@@ -20,33 +25,33 @@ function PharmaSmall({status, name, city, region, refer, position, garde}) {
 					restDelta: 0.001,
 				},
 			}}
-			className={`w-full p-4 rounded-xl space-y-4 ${
-				!status
+			className={`w-full p-4 rounded-xl space-y-4 cursor-pointer ${
+				!element.status
 					? 'bg-[#FFF5FB]'
-					: status && garde
+					: element.status && element.garde
 					? 'bg-[#F5FFF6]'
 					: 'bg-[#F5F6FF]'
 			}`}
 		>
 			<div className='flex justify-between items-center'>
 				<div>
-					<h4>{name}</h4>
+					<h4>{element.name}</h4>
 					<p className='small_text'>
-						{city}, {region} SN
+						{element.city}, {element.region} SN
 					</p>
 				</div>
-				{garde && (
+				{element.garde && (
 					<p className='font-semibold text-xs text-primary'>De garde</p>
 				)}
 			</div>
 
 			<div className='flex justify-between items-end'>
-				{status ? (
+				{element.status ? (
 					<p className='text-primary font-bold text-sm'>Ouverte</p>
 				) : (
 					<p className='text-[#C5414A] font-bold text-sm'>Fermée</p>
 				)}{' '}
-				<p className='text-lg font-medium'>... {position}km</p>
+				<p className='text-lg font-medium'>... {element.position}km</p>
 			</div>
 		</motion.div>
 	);

@@ -31,8 +31,37 @@ function Search() {
 	const [region, setRegion] = useState('');
 
 	const [advanced, toAdvanced] = useState(false);
+	const display = Pharmacies;
 
 	const [search, setSearch] = useState('');
+
+	function searching() {
+		return display.filter((t) => {
+			let searched = false;
+			const array = [t.name && t.name];
+			array.forEach((item) => {
+				if (item && item.toLowerCase().includes(search.toLowerCase())) {
+					searched = true;
+				}
+			});
+
+			return searched;
+		});
+	}
+
+	// function filter(tag) {
+	// 	return display.filter((t) => {
+	// 		let searched = false;
+	// 		const array = [t.ville && t.name];
+	// 		array.forEach((item) => {
+	// 			if (item && item.toLowerCase().includes(search.toLowerCase())) {
+	// 				searched = true;
+	// 			}
+	// 		});
+
+	// 		return searched;
+	// 	});
+	// }
 	return (
 		<div className='space-y-5'>
 			<Header>
@@ -60,11 +89,13 @@ function Search() {
 				>
 					<h4 className='cursor-pointer'>Effectuer une recherche avancée</h4>
 					{advanced ? (
-						<motion.div>
+						<motion.div whileTap={{ opacity: 0 }}>
 							<ChevronDownIcon className='w-4 h-4' />
 						</motion.div>
 					) : (
-						<ChevronRightIcon className='w-4 h-4' />
+						<motion.div whileTap={{ opacity: 0 }}>
+							<ChevronRightIcon className='w-4 h-4' />
+						</motion.div>
 					)}
 				</div>
 
@@ -124,19 +155,10 @@ function Search() {
 					variants={list}
 					className='grid grid-cols-1 gap-3'
 				>
-					{search ? (
-						Pharmacies.sort((a, b) => a.position - b.position).map((el, i) => (
-							<PharmaSmall
-								key={i}
-								city={el.city}
-								status={el.status}
-								garde={el.garde}
-								position={el.position}
-								region={el.region}
-								refer={el.refer}
-								name={el.name}
-							/>
-						))
+					{search !== '' ? (
+						searching()
+							.sort((a, b) => a.position - b.position)
+							.map((el) => <PharmaSmall key={el.id} element={el} />)
 					) : (
 						<div
 							role='status'

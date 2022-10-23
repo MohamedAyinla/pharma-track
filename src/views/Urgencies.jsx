@@ -2,44 +2,8 @@ import React from 'react';
 import Header from './../components/global/Header';
 import InputField from './../components/forms/InputField';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-
-const URGENCIES = [
-	{
-		name: 'SAMU Nationnal',
-		numbers: ['1515'],
-		short: 'Urgences médicales chirurgicales et obstétricales',
-	},
-	{
-		name: 'SAMU Nationnal',
-		numbers: ['1515', '1515'],
-		short: 'Urgences médicales chirurgicales et obstétricales',
-	},
-	{
-		name: 'SAMU Nationnal',
-		numbers: ['1515', '1515'],
-		short: 'Urgences médicales chirurgicales et obstétricales',
-	},
-	{
-		name: 'SAMU Nationnal',
-		numbers: ['1515'],
-		short: 'Urgences médicales chirurgicales et obstétricales',
-	},
-	{
-		name: 'SAMU Nationnal',
-		numbers: ['1515', '1515'],
-		short: 'Urgences médicales chirurgicales et obstétricales',
-	},
-	{
-		name: 'SAMU Nationnal',
-		numbers: ['1515', '1515'],
-		short: 'Urgences médicales chirurgicales et obstétricales',
-	},
-	{
-		name: 'SAMU Nationnal',
-		numbers: ['1515'],
-		short: 'Urgences médicales chirurgicales et obstétricales',
-	},
-];
+import { URGENCIES } from './../data/urgencies';
+import Urgence from '../components/cards/Urgence';
 
 function Urgencies() {
 	return (
@@ -52,7 +16,7 @@ function Urgencies() {
 
 			<section>
 				<InputField
-					placeholder='Rechercher une pharmacie, un numéro etc..'
+					placeholder='Rechercher une urgence nom ou numéro'
 					id='search'
 					name={'search'}
 					type={'text'}
@@ -66,19 +30,8 @@ function Urgencies() {
 				</h3>
 
 				<div className='columns-2'>
-					{URGENCIES.map((el, i) => (
-						<div
-							key={i}
-							className='bg-[#F5EADF6E] p-3 text-center rounded-xl space-y-3 mb-4 break-inside-avoid-column'
-						>
-							<h4>{el.name}</h4>
-							<div>
-								{el.numbers.map((num, id) => (
-									<p className='font-semibold text-xl'>{num}</p>
-								))}
-							</div>
-							<p className='text-xs'>{el.short}</p>
-						</div>
+					{URGENCIES.map((el) => (
+						<Urgence key={el.id} data={el} />
 					))}
 				</div>
 			</section>
