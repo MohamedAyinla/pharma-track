@@ -1,6 +1,16 @@
 import React from 'react';
 
-function InputField({ type, id, name, placeholder, leftIcon, rightIcon, value, onChange }) {
+function InputField({
+	type,
+	id,
+	name,
+	placeholder,
+	leftIcon,
+	rightIcon,
+	value,
+	onChange,
+	border = false,
+}) {
 	return (
 		<div className='relative rounded-xl shadow-sm'>
 			{{ leftIcon } && (
@@ -14,9 +24,9 @@ function InputField({ type, id, name, placeholder, leftIcon, rightIcon, value, o
 				type={type}
 				name={name}
 				id={id}
-				className={`block w-full bg-gray-50 rounded-xl border-gray-50 ${
-					leftIcon ? 'pl-11' : 'pl-5'
-				} ${
+				className={`block w-full bg-gray-50 outline-none rounded-lg border ${
+					border ? 'border-gray-500' : 'border-gray-50'
+				} ${leftIcon ? 'pl-11' : 'pl-5'} ${
 					rightIcon ? 'pr-12' : 'pr-5'
 				} pr-12 py-3 focus:border-gray-100 focus:ring-0 text-sm`}
 				placeholder={placeholder}

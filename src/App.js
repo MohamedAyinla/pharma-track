@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation, Navigate } from 'react-router-dom';
+
 import Wrapper from './views';
 import Home from './views/Home';
 import Search from './views/Search';
@@ -11,6 +12,27 @@ import Splash from './views/Splash';
 import ScrollToTop from './components/global/ScrollToTop';
 import DetailPharma from './views/DetailPharma';
 import DetailUrgence from './views/DetailUrgence';
+import { useSelector } from 'react-redux';
+import { selectLogged } from './redux/slices/logSlice';
+import Login from './views/Login';
+import Register from './views/Register';
+import Command from './views/Command';
+
+const ProtectedRoute = ({ children }) => {
+	let log = useSelector(selectLogged);
+	if (!log) {
+		return <Navigate to='/login' />;
+	}
+	return children;
+};
+
+// const EnterRoute = ({ children }) => {
+// 	let log = useSelector(selectLogged);
+// 	if (log) {
+// 		return <Navigate to='/' />;
+// 	}
+// 	return children;
+// };
 
 function App() {
 	const [status, setStatus] = useState(false);
@@ -30,8 +52,26 @@ function App() {
 						<Route path='search' element={<Search />} />
 						<Route path='urgencies' element={<Urgencies />} />
 						<Route path='urgencies/:id' element={<DetailUrgence />} />
-						<Route path='profile' element={<Profile />} />
+						<Route
+							path='command'
+							element={
+								<ProtectedRoute>
+									<Command />{' '}
+								</ProtectedRoute>
+							}
+						/>
+						<Route
+							path='profile'
+							element={
+								<ProtectedRoute>
+									<Profile />
+								</ProtectedRoute>
+							}
+						/>
 					</Route>
+
+					<Route path='/login' element={<Login />} />
+					<Route path='/register' element={<Register />} />
 				</Routes>
 			</ScrollToTop>
 		</AnimatePresence>

@@ -71,7 +71,10 @@ function DetailPharma() {
 			</section>
 
 			<div className='mx-auto max-w-fit'>
-				<button className='px-4 py-3 rounded-lg transition duration-300 bg-primary hover:bg-green-800 font-medium text-white text-sm'>
+				<button
+					onClick={() => navigate('/command')}
+					className='px-4 py-3 rounded-lg transition duration-300 bg-primary hover:bg-green-800 font-medium text-white text-sm'
+				>
 					Commander une ordonnance
 				</button>
 			</div>

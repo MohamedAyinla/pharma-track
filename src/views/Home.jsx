@@ -5,13 +5,17 @@ import { FreeMode } from 'swiper';
 import 'swiper/css';
 import InputField from './../components/forms/InputField';
 
-import Image1 from '../images/icons/pharmacie.png'
+import Image1 from '../images/icons/pharmacie.png';
 import Image2 from '../images/icons/bx-calendar-star.png';
 import Image3 from '../images/icons/appel-durgence.png';
 import PharmaSmall from '../components/cards/PharmaSmall';
 import Header from '../components/global/Header';
 import { motion } from 'framer-motion';
 import { Pharmacies } from '../data/pharma';
+import { useSelector } from 'react-redux';
+import { selectLogged } from './../redux/slices/logSlice';
+import { getUser } from './../redux/slices/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 const list = {
 	visible: {
@@ -29,36 +33,21 @@ const list = {
 	},
 };
 
-
-
-const FilterCard = [
-	{
-		label: 'Pharmacies de garde',
-		img: Image1,
-		color: 'bg-[#DFF5E2]',
-		tag: 'garde',
-	},
-	{
-		label: 'Pharmacies de référence',
-		img: Image2,
-		color: 'bg-[#DFE9F5]',
-		tag: 'refer',
-	},
-	{
-		label: "Numéros d'urgence",
-		img: Image3,
-		color: 'bg-[#F5EADF]',
-		tag: 'urgencies',
-	},
-];
-
-
 function Home() {
+	let navigate = useNavigate()
+	let log = useSelector(selectLogged);
+	let user = useSelector(getUser);
 	return (
 		<div className='space-y-5'>
 			<Header>
 				<section className=''>
-					<h1 className='text-3xl font-bold'>Bonjour 👋</h1>
+					{log ? (
+						<h1 className='text-3xl font-bold'>
+							Bonjour, {user.firstname + ' ' + user.lastname}
+						</h1>
+					) : (
+						<h1 className='text-3xl font-bold'>Bonjour 👋</h1>
+					)}
 				</section>
 			</Header>
 
@@ -79,18 +68,24 @@ function Home() {
 					freeMode={true}
 					modules={[FreeMode]}
 				>
-					{FilterCard.map((el, i) => (
-						<SwiperSlide key={i}>
-							<div className={`filter_card ${el.color}`}>
-								<img
-									src={el.img}
-									className='w-6 absolute top-3 right-3'
-									alt=''
-								/>
-								<h4 className='w-5/6'>{el.label}</h4>
-							</div>
-						</SwiperSlide>
-					))}
+					<SwiperSlide>
+						<div className={`filter_card bg-[#DFF5E2]`}>
+							<img src={Image1} className='w-6 absolute top-3 right-3' alt='' />
+							<h4 className='w-5/6'>Pharmacies de garde</h4>
+						</div>
+					</SwiperSlide>
+					<SwiperSlide>
+						<div className={`filter_card bg-[#DFE9F5]`}>
+							<img src={Image2} className='w-6 absolute top-3 right-3' alt='' />
+							<h4 className='w-5/6'>Pharmacies de référence</h4>
+						</div>
+					</SwiperSlide>
+					<SwiperSlide>
+						<div onClick={() => navigate('/urgencies', {replace: true})} className={`filter_card bg-[#F5EADF]`}>
+							<img src={Image3} className='w-6 absolute top-3 right-3' alt='' />
+							<h4 className='w-5/6'>Numéros d'urgence</h4>
+						</div>
+					</SwiperSlide>
 				</Swiper>
 			</section>
 
@@ -103,10 +98,7 @@ function Home() {
 					className='grid grid-cols-1 gap-3'
 				>
 					{Pharmacies.sort((a, b) => a.position - b.position).map((el) => (
-						<PharmaSmall
-							key={el.id}
-							element={el}
-						/>
+						<PharmaSmall key={el.id} element={el} />
 					))}
 				</motion.div>
 			</section>
