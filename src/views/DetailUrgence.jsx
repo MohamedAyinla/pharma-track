@@ -1,6 +1,6 @@
 import Header from '../components/global/Header';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ChevronLeftIcon } from '@heroicons/react/24/solid';
+import { ChevronLeftIcon, PhoneIcon } from '@heroicons/react/24/solid';
 
 function DetailUrgence() {
 	let navigate = useNavigate();
@@ -30,15 +30,25 @@ function DetailUrgence() {
 				>
 					<h4>{urgence.name}</h4>
 					<div>
-						{urgence.numbers.map((num, id) => (
-							<p key={id} className='font-semibold text-xl'>{num}</p>
-						))}
+						{urgence.number}
 					</div>
 					<p className='text-xs'>{urgence.short}</p>
 					<p className='text-sm'>{urgence.desc}</p>
-					{urgence.siege && <p className='text-sm font-medium'>Siège : {urgence.siege}</p>}{' '}
+					{urgence.siege && (
+						<p className='text-sm font-medium'>Siège : {urgence.siege}</p>
+					)}{' '}
 				</div>
 			</section>
+
+			<div className='mx-auto max-w-fit'>
+				<a
+					href={`tel:${urgence.number}`}
+					className='px-4 py-3 cursor-pointer rounded-lg transition duration-300 bg-primary hover:bg-green-800 font-medium text-white text-sm inline-flex items-center gap-2'
+				>
+					<PhoneIcon className='w-4 h-4' />
+					Appeler
+				</a>
+			</div>
 		</div>
 	);
 }

@@ -2,6 +2,10 @@ import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import React from 'react';
 import Header from './../components/global/Header';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUser, removeUser } from '../redux/slices/userSlice';
+import { loggedOut } from '../redux/slices/logSlice';
 
 const list = {
 	visible: { opacity: 1 },
@@ -14,6 +18,11 @@ const item = {
 };
 
 function Profile() {
+	let navigate = useNavigate()
+	let dispatch = useDispatch()
+
+	const user = useSelector(getUser)
+
 	return (
 		<div className='space-y-10'>
 			<Header>
@@ -23,8 +32,8 @@ function Profile() {
 			</Header>
 
 			<section className='text-center'>
-				<h3>John Doe</h3>
-				<p className='text-[15px]'>johndoe@gmail.com</p>
+				<h3>{user.firstname + ' ' + user.lastname}</h3>
+				<p className='text-[15px]'>{user.email}</p>
 			</section>
 
 			<section className=''>
@@ -71,6 +80,11 @@ function Profile() {
 						whileHover={{ scale: 1.01 }}
 						whileTap={{ scale: 0.99 }}
 						className='font-medium flex justify-between items-center cursor-pointer'
+						onClick={() => {
+							dispatch(removeUser())
+							dispatch(loggedOut())
+							navigate('/')
+						}}
 					>
 						Déconnexion
 					</motion.li>

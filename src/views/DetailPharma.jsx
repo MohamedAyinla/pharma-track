@@ -1,6 +1,6 @@
 import Header from '../components/global/Header';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ChevronLeftIcon } from '@heroicons/react/24/solid';
+import { ChevronLeftIcon, MapIcon, MapPinIcon } from '@heroicons/react/24/solid';
 
 function DetailPharma() {
 	let navigate = useNavigate();
@@ -70,6 +70,20 @@ function DetailPharma() {
 				</div>
 			</section>
 
+			{/* à revoir */}
+			<div className='mx-auto max-w-fit'>
+				<button
+					onClick={() =>
+						window.open(
+							'https://www.google.com/maps/',
+						)
+					}
+					className='px-4 py-3 rounded-lg transition duration-300 text-gray-900 border border-primary bg-green-50 hover:bg-green-100 font-medium text-sm inline-flex items-center gap-2'
+				>
+					Voir l'itinéraire
+					<MapPinIcon className='w-5 h-5' />
+				</button>
+			</div>
 			<div className='mx-auto max-w-fit'>
 				<button
 					onClick={() => navigate('/command')}

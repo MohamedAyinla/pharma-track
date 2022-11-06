@@ -1,5 +1,5 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FreeMode } from 'swiper';
 import 'swiper/css';
@@ -16,6 +16,10 @@ import { useSelector } from 'react-redux';
 import { selectLogged } from './../redux/slices/logSlice';
 import { getUser } from './../redux/slices/userSlice';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+const apiURL = 'https://ipgeolocation.abstractapi.com/v1/';
+const apiKey = '46cf9e5e0f4840dcb99fb0354dfad0b4';
 
 const list = {
 	visible: {
@@ -34,16 +38,30 @@ const list = {
 };
 
 function Home() {
-	let navigate = useNavigate()
+	let navigate = useNavigate();
 	let log = useSelector(selectLogged);
 	let user = useSelector(getUser);
+
+	function salute() {
+		let hour = new Date().getHours();
+		if (hour <= 5) {
+			return 'Nouveau jour';
+		} else if (hour <= 12) {
+			return 'Bonjour';
+		} else if (hour <= 15) {
+			return 'Bon Aprem';
+		} else {
+			return 'Bonsoir';
+		}
+	}
+
 	return (
 		<div className='space-y-5'>
 			<Header>
 				<section className=''>
 					{log ? (
 						<h1 className='text-3xl font-bold'>
-							Bonjour, {user.firstname + ' ' + user.lastname}
+							{salute()}, {user.firstname}
 						</h1>
 					) : (
 						<h1 className='text-3xl font-bold'>Bonjour 👋</h1>
@@ -81,7 +99,10 @@ function Home() {
 						</div>
 					</SwiperSlide>
 					<SwiperSlide>
-						<div onClick={() => navigate('/urgencies', {replace: true})} className={`filter_card bg-[#F5EADF]`}>
+						<div
+							onClick={() => navigate('/urgencies', { replace: true })}
+							className={`filter_card bg-[#F5EADF]`}
+						>
 							<img src={Image3} className='w-6 absolute top-3 right-3' alt='' />
 							<h4 className='w-5/6'>Numéros d'urgence</h4>
 						</div>
@@ -91,6 +112,7 @@ function Home() {
 
 			<section>
 				<h3 className='mb-5'>Pharmacies à proximité</h3>
+
 				<motion.div
 					initial='hidden'
 					animate='visible'

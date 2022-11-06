@@ -18,7 +18,16 @@ import {
 function Navbar() {
 	let pathname = useLocation().pathname;
 	return (
-		<nav className='fixed inset-x-0 bottom-0 z-10 max-w-md mx-auto px-6 shadow h-16 bg-white flex items-center'>
+		<nav
+			className={`fixed inset-x-0 transition-all duration-400 ${
+				pathname !== '/' &&
+				pathname !== '/search' &&
+				pathname !== '/urgencies' &&
+				pathname !== '/profile'
+					? '-bottom-full'
+					: 'bottom-0'
+			} z-10 max-w-md mx-auto px-6 shadow h-16 bg-white flex items-center`}
+		>
 			<div className='grid grid-cols-4 justify-between items-center w-full'>
 				<Link className='mx-auto' to={'/'}>
 					<motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>

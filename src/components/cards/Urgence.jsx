@@ -14,9 +14,7 @@ function Urgence({ data }) {
 		>
 			<h4>{data.name}</h4>
 			<div>
-				{data.numbers.map((num, id) => (
-					<p key={id} className='font-semibold text-xl'>{num}</p>
-				))}
+				{data.number}
 			</div>
 			<p className='text-xs'>{data.short}</p>
 		</div>

@@ -9,7 +9,6 @@
 		@apply scroll-smooth;
 	}
 	body {
-		@apply font-sans;
 	}
 	h3 {
 		@apply text-lg font-semibold cursor-default;

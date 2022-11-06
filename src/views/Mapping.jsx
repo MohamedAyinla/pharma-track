@@ -1,18 +1,23 @@
 import { ChevronLeftIcon } from '@heroicons/react/24/outline';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/global/Header';
-import { selectLogged } from '../redux/slices/logSlice';
+import MapContainer from '../components/MapContainer';
 
-function Command() {
-  let log = useSelector(selectLogged);
-  let navigate = useNavigate()
+const LocationPin = ({ text }) => (
+	<div className='pin'>
+		{/* <Icon icon={locationIcon} className='pin-icon' /> */}
+		<p className='pin-text'>{text}</p>
+	</div>
+);
+
+function Mapping({ loc }) {
+	let navigate = useNavigate();
 	return (
-		<div className='space-y-7'>
+		<div className='space-y-5'>
 			<Header>
 				<section className='space-y-7'>
-					<h1 className='text-3xl font-bold'>Commander</h1>
+					<h1 className='text-3xl font-bold'>Carte</h1>
 
 					<div
 						onClick={() => {
@@ -26,17 +31,11 @@ function Command() {
 				</section>
 			</Header>
 
-			{log ? (
-				<section></section>
-			) : (
-				<section>
-					<p>
-						Veuillez vous connecter avant de pouvoir effectuer cette opération
-					</p>
-				</section>
-			)}
+			<section className='w-full h-full relative'>
+				<MapContainer />
+			</section>
 		</div>
 	);
 }
 
-export default Command;
+export default Mapping;
