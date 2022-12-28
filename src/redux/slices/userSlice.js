@@ -6,24 +6,22 @@ export const userSlice = createSlice({
 		jwt: '',
 		id: '',
 		username: '',
-		firstname: '',
-		lastname: '',
+		fullname: '',
 		email: '',
+		category: '',
 	},
 	reducers: {
 		setUser: (state, action) => {
 			state.jwt = action.payload.jwt;
 			state.id = action.payload.id;
 			state.username = action.payload.username;
-			state.firstname = action.payload.firstname;
-			state.lastname = action.payload.lastname;
+			state.fullname = action.payload.fullname;
 			state.email = action.payload.email;
+			state.category = action.payload.category;
 		},
 		updateLocalUser: (state, action) => {
-			state.id = action.payload.id;
 			state.username = action.payload.username;
-			state.firstname = action.payload.firstname;
-			state.lastname = action.payload.lastname;
+			state.fullname = action.payload.fullname;
 			state.email = action.payload.email;
 		},
 		removeUser: (state) => {
@@ -34,8 +32,7 @@ export const userSlice = createSlice({
 	},
 });
 
-export const { setUser, removeUser, updateLocalUser } =
-	userSlice.actions;
+export const { setUser, removeUser, updateLocalUser } = userSlice.actions;
 
 export const getUser = (state) => state.user;
 

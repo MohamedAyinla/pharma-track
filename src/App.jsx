@@ -6,12 +6,12 @@ import Home from './views/Home';
 import Search from './views/Search';
 
 import { AnimatePresence } from 'framer-motion';
-import Urgencies from './views/Urgencies';
-import Profile from './views/Profile';
+import Urgencies from './views/Urgences/Urgencies';
+import Profile from './views/Profile/Profile';
 import Splash from './views/Splash';
 import ScrollToTop from './components/global/ScrollToTop';
 import DetailPharma from './views/DetailPharma';
-import DetailUrgence from './views/DetailUrgence';
+import DetailUrgence from './views/Urgences/DetailUrgence';
 import { useSelector } from 'react-redux';
 import { selectLogged } from './redux/slices/logSlice';
 import Login from './views/Login';
@@ -19,6 +19,11 @@ import Register from './views/Register';
 import Command from './views/Command';
 import axios from 'axios';
 import Mapping from './views/Mapping';
+import Inquery from './views/Register/Inquery';
+import RPharmacie from './views/Register/RPharmacie';
+import RParticular from './views/Register/RParticular';
+import ProfilViews from './views/Profile';
+import GeneralInfo from './views/Profile/GeneralInfo';
 
 const ProtectedRoute = ({ children }) => {
 	let log = useSelector(selectLogged);
@@ -38,7 +43,7 @@ const ProtectedRoute = ({ children }) => {
 
 function App() {
 	const [status, setStatus] = useState(false);
-	const [load, setLoad] = useState(true)
+	const [load, setLoad] = useState(true);
 	const [localisation, setLoc] = useState();
 	const location = useLocation();
 	useEffect(() => {
@@ -58,11 +63,11 @@ function App() {
 					lat: result.data.latitude,
 					lng: result.data.longitude,
 				});
-				setLoad(false)
+				setLoad(false);
 			})
 			.catch((err) => {
 				console.log(err);
-				setLoad(false)
+				setLoad(false);
 			});
 	}
 
@@ -85,14 +90,21 @@ function App() {
 							path='profile'
 							element={
 								<ProtectedRoute>
-									<Profile />
+									<ProfilViews />
 								</ProtectedRoute>
 							}
-						/>
+						>
+							<Route index element={<Profile />} />
+							<Route path='generalInfo' element={<GeneralInfo />} />
+						</Route>
 					</Route>
 
 					<Route path='/login' element={<Login />} />
-					<Route path='/register' element={<Register />} />
+					<Route path='/register' element={<Register />}>
+						<Route index element={<Inquery />} />
+						<Route path='pharmacie' element={<RPharmacie />} />
+						<Route path='particular' element={<RParticular />} />
+					</Route>
 				</Routes>
 			</ScrollToTop>
 		</AnimatePresence>

@@ -23,7 +23,7 @@
 		@apply text-[10px];
 	}
 	.container {
-		@apply max-w-md mx-auto pb-8 px-6 min-h-screen;
+		@apply max-w-screen-xl mx-auto pb-8 px-6 min-h-screen;
 	}
 
 	.filter_card {

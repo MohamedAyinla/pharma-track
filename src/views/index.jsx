@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 
 function Wrapper() {
 	return (
-		<div className='container relative border pb-20'>
+		<div className='container relative pb-20 sm:pb-0 sm:pt-20'>
 			<motion.main
 				initial={{
 					opacity: 0,

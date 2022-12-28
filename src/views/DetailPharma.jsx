@@ -1,13 +1,17 @@
 import Header from '../components/global/Header';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ChevronLeftIcon, MapIcon, MapPinIcon } from '@heroicons/react/24/solid';
+import {
+	ChevronLeftIcon,
+	MapIcon,
+	MapPinIcon,
+} from '@heroicons/react/24/solid';
 
 function DetailPharma() {
 	let navigate = useNavigate();
 	const state = useLocation().state;
 	const { pharmacie } = state;
 	return (
-		<div className='space-y-7'>
+		<div className=''>
 			<Header>
 				<section className='space-y-7'>
 					<h1 className='text-3xl font-bold'>Détails Pharmacie</h1>
@@ -24,7 +28,17 @@ function DetailPharma() {
 				</section>
 			</Header>
 
-			<section>
+			<div
+				onClick={() => {
+					navigate(-1);
+				}}
+				className='sm:flex gap-2 items-center cursor-pointer max-w-fit hidden my-10'
+			>
+				<ChevronLeftIcon className='w-4 h-4' />
+				<p>Retour</p>
+			</div>
+
+			<section className='max-w-lg mx-auto max-auto space-y-7'>
 				<div
 					className={`rounded-2xl ${
 						!pharmacie.status
@@ -68,30 +82,18 @@ function DetailPharma() {
 						</div>
 					</div>
 				</div>
+				<div className='mx-auto max-w-fit'>
+					<button
+						onClick={() => navigate('/mapping')}
+						className='px-4 py-3 rounded-lg transition duration-300 text-gray-900 border border-primary bg-green-50 hover:bg-green-100 font-medium text-sm inline-flex items-center gap-2'
+					>
+						Voir l'itinéraire
+						<MapPinIcon className='w-5 h-5' />
+					</button>
+				</div>
 			</section>
 
 			{/* à revoir */}
-			<div className='mx-auto max-w-fit'>
-				<button
-					onClick={() =>
-						window.open(
-							'https://www.google.com/maps/',
-						)
-					}
-					className='px-4 py-3 rounded-lg transition duration-300 text-gray-900 border border-primary bg-green-50 hover:bg-green-100 font-medium text-sm inline-flex items-center gap-2'
-				>
-					Voir l'itinéraire
-					<MapPinIcon className='w-5 h-5' />
-				</button>
-			</div>
-			<div className='mx-auto max-w-fit'>
-				<button
-					onClick={() => navigate('/command')}
-					className='px-4 py-3 rounded-lg transition duration-300 bg-primary hover:bg-green-800 font-medium text-white text-sm'
-				>
-					Commander une ordonnance
-				</button>
-			</div>
 		</div>
 	);
 }

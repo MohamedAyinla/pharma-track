@@ -32,7 +32,7 @@ function Mapping({ loc }) {
 			</Header>
 
 			<section className='w-full h-full relative'>
-				<MapContainer />
+				{/* <MapContainer /> */}
 			</section>
 		</div>
 	);

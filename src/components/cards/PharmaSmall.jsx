@@ -37,7 +37,7 @@ function PharmaSmall({ element }) {
 				<div>
 					<h4>{element.name}</h4>
 					<p className='small_text'>
-						{element.city}, {element.region} SN
+						{element.region}, {element.city} SN
 					</p>
 				</div>
 				{element.garde && (
